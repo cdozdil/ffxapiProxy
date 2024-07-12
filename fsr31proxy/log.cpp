@@ -7,7 +7,12 @@ std::ostream null(nullptr);
 std::ostream* logStream = &null;
 std::ofstream fileStream;
 
-std::string getCurrentTimeFormatted() {
+//#define LOGGING_ENABLED
+
+#ifdef  LOGGING_ENABLED
+
+inline static std::string getCurrentTimeFormatted() 
+{
     auto now = std::chrono::system_clock::now();
     auto now_t = std::chrono::system_clock::to_time_t(now);
     auto now_tm = *std::localtime(&now_t);
@@ -22,11 +27,13 @@ std::string getCurrentTimeFormatted() {
     return oss.str();
 }
 
-void log(const std::string& log) {
+void log(const std::string& log) 
+{
     *logStream << "[" << getCurrentTimeFormatted() << "] " << log << std::endl;
 }
 
-void prepareLogging(std::string fileName) {
+void prepareLogging(std::string fileName) 
+{
     fileStream.open(fileName, std::ios_base::out | std::ios_base::app);
     if (fileStream.is_open()) {
         logStream = &fileStream;
@@ -37,6 +44,16 @@ void prepareLogging(std::string fileName) {
     }
 }
 
-void closeLogging() {
+void closeLogging() 
+{
     fileStream.close();
 }
+
+#else
+
+void log(const std::string& log) {}
+void prepareLogging(std::string fileName) {}
+void closeLogging() {}
+
+#endif //  LOGGING_ENABLED
+
