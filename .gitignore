@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/fsr31proxy/fsr21/lib/ffx_fsr2_212_api_dx12_x64.lib
+/fsr31proxy/fsr21/lib/ffx_fsr2_212_api_dx12_x64d.lib
+/fsr31proxy/fsr21/lib/ffx_fsr2_212_api_x64.lib
+/fsr31proxy/fsr21/lib/ffx_fsr2_212_api_x64d.lib
