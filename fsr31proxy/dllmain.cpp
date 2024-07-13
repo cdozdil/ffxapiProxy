@@ -126,7 +126,12 @@ FFX_API_ENTRY ffxReturnCode_t ffxConfigure(ffxContext* context, const ffxConfigu
 {
     log("ffxConfigure");
 
-    auto result = _configure(context, desc);
+    ffxReturnCode_t result;
+
+    if (context != nullptr && *context == &_context)
+        result = _configure(nullptr, desc);
+    else
+        result = _configure(context, desc);
 
     log("ffxConfigure result: " + std::to_string((uint32_t)result));
 
@@ -136,8 +141,12 @@ FFX_API_ENTRY ffxReturnCode_t ffxConfigure(ffxContext* context, const ffxConfigu
 FFX_API_ENTRY ffxReturnCode_t ffxQuery(ffxContext* context, ffxQueryDescHeader* desc)
 {
     log("ffxQuery");
+    ffxReturnCode_t result;
 
-    auto result = _query(context, desc);
+    if (context != nullptr && *context == &_context)
+        result = _query(nullptr, desc);
+    else
+        result = _query(context, desc);
 
     log("ffxQuery result: " + std::to_string((uint32_t)result));
 
