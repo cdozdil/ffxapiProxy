@@ -148,6 +148,32 @@ FFX_API_ENTRY ffxReturnCode_t ffxQuery(ffxContext* context, ffxQueryDescHeader* 
     else
         result = _query(context, desc);
 
+    switch (desc->type) {
+        case FFX_API_QUERY_DESC_TYPE_UPSCALE_GETRENDERRESOLUTIONFROMQUALITYMODE:
+        {
+            auto grrfq = (ffxQueryDescUpscaleGetRenderResolutionFromQualityMode*)desc;
+
+            log("ffxQuery header->type: FFX_API_QUERY_DESC_TYPE_UPSCALE_GETRENDERRESOLUTIONFROMQUALITYMODE");
+            log(std::format("Display Resolution: {}x{}", grrfq->displayWidth, grrfq->displayHeight));
+            log(std::format("Quality: {}", grrfq->qualityMode));
+            log(std::format("Render Resolution: {}x{}", *grrfq->pOutRenderWidth, *grrfq->pOutRenderHeight));
+            break;
+        }
+
+        case FFX_API_QUERY_DESC_TYPE_UPSCALE_GETUPSCALERATIOFROMQUALITYMODE:
+        {
+            auto gurfq = (ffxQueryDescUpscaleGetUpscaleRatioFromQualityMode*)desc;
+
+            log("ffxQuery header->type: FFX_API_QUERY_DESC_TYPE_UPSCALE_GETUPSCALERATIOFROMQUALITYMODE");
+            log(std::format("Quality: {}", gurfq->qualityMode));
+            log(std::format("Scale Ratio: {}", *gurfq->pOutUpscaleRatio));
+            break;
+        }
+
+        default:
+            log(std::format("ffxQuery header->type: {}", (UINT)desc->type));
+    }
+
     log("ffxQuery result: " + std::to_string((uint32_t)result));
 
     return result;

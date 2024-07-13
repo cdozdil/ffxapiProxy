@@ -7,7 +7,7 @@ std::ostream null(nullptr);
 std::ostream* logStream = &null;
 std::ofstream fileStream;
 
-// #define LOGGING_ENABLED
+#define LOGGING_ENABLED
 
 #ifdef  LOGGING_ENABLED
 
